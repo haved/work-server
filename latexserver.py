@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
+from os import getenv
 
 HOST = ""
 PORT = int(getenv("PORT", "80"))
@@ -10,7 +11,7 @@ def read_file(filename):
         return f.read()
 
 class LatexRequest(BaseHTTPRequestHandler):
-    def output(bytedata, content_type):
+    def output(self, bytedata, content_type):
         self.protocol_version = 'HTTP/2'
         self.send_response(200, 'OK')
         self.send_header('Content-Type', content_type)
