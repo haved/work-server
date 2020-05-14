@@ -20,7 +20,7 @@ class LatexRequest(BaseHTTPRequestHandler):
         self.wfile.write(bytedata)
 
     def redirect(self, to):
-        self.protocol_version = 'HTTP/2'
+        self.protocol_version = 'HTTP/1.1'
         self.send_response(301)
         self.send_header('Location', to)
         self.end_headers()
