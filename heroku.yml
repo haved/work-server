@@ -1,0 +1,4 @@
+build:
+  docker:
+    web: Dockerfile
+#No run makes heroku start image CMD
