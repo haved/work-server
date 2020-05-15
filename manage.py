@@ -65,7 +65,7 @@ def main():
         run_command(["docker", "run", "-it", "-p", "8000:8000", IMAGE_NAME])
     elif command == "run":
         run_command(["python3", "work-server.py"])
-    elif command.trim() == "":
+    elif command.strip() == "":
         exit(0)
     else:
         error(f"Unknown command: {command}")

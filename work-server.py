@@ -6,6 +6,8 @@ from os import getenv
 HOST = ""
 PORT = int(getenv("PORT", "8000"))
 
+HTML_MIME = "text/html"
+
 def read_file(filename):
     with open(filename) as f:
         return f.read()
@@ -29,9 +31,9 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.protocol_version = 'HTTP/1.1'
         if self.path == "/" or self.path == "/index.html":
-            self.output_file("public/index.html")
+            self.output_file("public/index.html", HTML_MIME)
         else:
-            self.output_file("public/404.html")
+            self.output_file("public/404.html", HTML_MIME)
 
     def do_POST(self):
         pass
