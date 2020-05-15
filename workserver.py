@@ -10,9 +10,11 @@ def read_file(filename):
     with open(filename) as f:
         return f.read()
 
-class LatexRequest(BaseHTTPRequestHandler):
+class RequestHandler(BaseHTTPRequestHandler):
+    def output_file(self, filename, content_type):
+        self.output(read_file(filename).encode('utf-8'), f"{content_type}; charset=UTF-8")
+
     def output(self, bytedata, content_type):
-        self.protocol_version = 'HTTP/2'
         self.send_response(200, 'OK')
         self.send_header('Content-Type', content_type)
         self.send_header('Content-Length', len(bytedata))
@@ -20,16 +22,16 @@ class LatexRequest(BaseHTTPRequestHandler):
         self.wfile.write(bytedata)
 
     def redirect(self, to):
-        self.protocol_version = 'HTTP/1.1'
         self.send_response(301)
         self.send_header('Location', to)
         self.end_headers()
 
     def do_GET(self):
+        self.protocol_version = 'HTTP/1.1'
         if self.path == "/" or self.path == "/index.html":
-            self.output(read_file("README.md").encode('utf-8'), "text/plain; charset=UTF-8")
+            self.output_file("public/index.html")
         else:
-            self.redirect("/index.html")
+            self.output_file("public/404.html")
 
     def do_POST(self):
         pass
