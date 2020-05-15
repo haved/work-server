@@ -1,4 +1,5 @@
 README.md
 Dockerfile
 .dockerignore
-deploy.sh
+manage.py
+.gitignore

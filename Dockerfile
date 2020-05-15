@@ -1,8 +1,8 @@
 FROM ubuntu:focal
 WORKDIR /app
 
-# We get $PORT as env from heroku, no EXPOSE
-
+#The default. Heroku provides us with the real one
+ENV PORT=8000
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
@@ -13,4 +13,4 @@ RUN apt-get update \
 
 COPY . /app/
 
-ENTRYPOINT ["python3", "workserver.py"]
+ENTRYPOINT ["python3", "work-server.py"]

@@ -4,7 +4,7 @@ from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from os import getenv
 
 HOST = ""
-PORT = int(getenv("PORT", "80"))
+PORT = int(getenv("PORT", "8000"))
 
 def read_file(filename):
     with open(filename) as f:
@@ -37,8 +37,8 @@ class RequestHandler(BaseHTTPRequestHandler):
         pass
 
 def main():
-    with ThreadingHTTPServer((HOST,PORT), LatexRequest) as httpd:
-        print(f"Serving latex server on {PORT}")
+    with ThreadingHTTPServer((HOST,PORT), RequestHandler) as httpd:
+        print(f"Serving work server on port {PORT}")
         httpd.serve_forever()
 
 if __name__ == "__main__":
