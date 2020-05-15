@@ -3,6 +3,9 @@
 from subprocess import Popen, PIPE
 import sys
 
+HEROKU_NAME = "haved-work"
+IMAGE_NAME = "work-server-local"
+
 def error(message):
     print(f"error: {message}", file=sys.stderr)
     exit(1)
@@ -32,23 +35,29 @@ def main():
 
     print()
     print("What do you want to do?")
-    print(" [deploy] Build a docker image on heroku's registry and release it")
-    print(" [docker_build] Build a docker image locally")
-    print(" [docker_run] Run the local docker image")
-    print(" [run] Run the server, not in docker")
+    print(f" [deploy] Build a docker image on heroku's registry and release it as '{HEROKU_NAME}'")
+    print(f" [logs] See heroku logs")
+    print(f" [docker_build] Build a docker image locally as '{IMAGE_NAME}'")
+    print(f" [docker_run] Run the local docker image")
+    print(f" [run] Run the server, not in docker")
+    print(f" [<nothing>] quit")
     print()
     print("Enter your choice: ", end="")
     command = input()
 
     if command == "deploy":
-        run_command(["heroku", "container:push", "web", "-a", "work-server"])
-        run_command(["heroku", "container:release", "web", "-a", "work-server"])
+        run_command(["heroku", "container:push", "web", "-a", HEROKU_NAME])
+        run_command(["heroku", "container:release", "web", "-a", HEROKU_NAME])
+    elif command == "logs":
+        run_command(["heroku", "logs", "-a", HEROKU_NAME])
     elif command == "docker_build":
         run_command(["docker", "image", "build", "-t", IMAGE_NAME])
     elif command == "docker_run":
         run_command(["docker", "run", "-it", IMAGE_NAME])
     elif command == "run":
         run_command(["python3", "work-server.py"])
+    elif command.trim() == "":
+        exit(0)
     else:
         error(f"Unknown command: {command}")
 
