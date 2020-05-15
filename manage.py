@@ -15,3 +15,9 @@ def run_command(cmd, store_output=False, **kwargs):
 
 def main():
     print("Welcome to the work-server management script.")
+
+    changes = run_command(["git", "status", "--porcelain"], store_output=True)
+    if changes.trim() != "":
+        print("You have uncommited changes in git!")
+
+    
