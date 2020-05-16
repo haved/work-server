@@ -59,6 +59,8 @@ def main():
         run_command(["heroku", "container:release", "web", "-a", HEROKU_NAME])
     elif command == "logs":
         run_command(["heroku", "logs", "-a", HEROKU_NAME])
+    elif command == "open":
+        run_command(["heroku", "open", "-a", HEROKU_NAME])
     elif command == "docker_build":
         run_command(["docker", "build", ".", "-t", IMAGE_NAME])
     elif command == "docker_run":
