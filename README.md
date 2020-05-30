@@ -1,6 +1,5 @@
 ## Work server
-This is the repo for a docker image that exposes whatever features I may want to have a server do.
-Currently its only task is compiling my latex when asked by netlify.
+I decided I didn't need a work server after all. Leaving this here in case I later want to deploy a python server in docker
 
 ### Deploying
 I use `manage.py`. To deploy to heroku with the CLI (assuming logged in):
